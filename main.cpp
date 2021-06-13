@@ -34,8 +34,8 @@ void ErrorExit(LPTSTR lpszFunction)
     ExitProcess(dw); 
 }
 
-const wchar_t* WINDOW_TITLE = L"TraderHUD";
-const wchar_t* CLASS_NAME   = L"traderhud";
+const wchar_t* WINDOW_TITLE = L"NeoTD";
+const wchar_t* CLASS_NAME   = L"neotd";
 const int w = 960, h = 500;
 HWND currentWindow;
 HBITMAP bmp;
@@ -65,6 +65,7 @@ int WINAPI wWinMain(
     wc.lpszClassName = CLASS_NAME;
 
     RegisterClass(&wc);
+
     HWND hwnd = CreateWindowEx(
         0,                      // Optional window styles
         CLASS_NAME,             // Window class
@@ -107,7 +108,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
     {
     case WM_CREATE:
         {
-            const wchar_t* path = L"..\\resources\\matrix.bmp";
+            const wchar_t* path = L"..\\resources\\banner.bmp";
             bmp = (HBITMAP) LoadImage(NULL, path, IMAGE_BITMAP, w, h, LR_LOADFROMFILE);
             if (NULL == bmp) {
                 ErrorExit(L"WM_CREATE LoadImage");
@@ -191,7 +192,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
         return 0;
 
     case WM_LBUTTONUP:
-        log(L"mouse left button up");
+        // log(L"mouse left button up");
         return 0;
 
     case WM_DESTROY:
