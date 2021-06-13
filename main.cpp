@@ -111,8 +111,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
             bmp = (HBITMAP) LoadImage(NULL, path, IMAGE_BITMAP, w, h, LR_LOADFROMFILE);
             if (NULL == bmp) {
                 ErrorExit(L"WM_CREATE LoadImage");
-                // log(L"LoadImage failed.");
+                // log(L"WM_CREATE LoadImage failed.");
             }
+
+            const BOOL outcome = sndPlaySound(L"..\\resources\\music.wav", SND_ASYNC | SND_LOOP);
+            if (FALSE == outcome) {
+                // ErrorExit(L"WM_CREATE sndPlaySound");
+                log(L"WM_CREATE sndPlaySound failed.");
+            }
+
             return 0;
         }
 

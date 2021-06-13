@@ -5,7 +5,7 @@ echo clean...
 del main.obj main.exe
 
 echo compile and link...
-cl ../main.cpp /std:c++17 /DUNICODE /D_UNICODE /link user32.lib gdi32.lib
+cl ../main.cpp /std:c++17 /DUNICODE /D_UNICODE /link user32.lib gdi32.lib winmm.lib
 cd ..
 pause
 
