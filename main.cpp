@@ -107,7 +107,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
     {
     case WM_CREATE:
         {
-            const wchar_t* path = L"C:\\Users\\mikes\\Documents\\CPP\\Win32_GDI_Test1\\resources\\matrix.bmp";
+            const wchar_t* path = L"..\\resources\\matrix.bmp";
             bmp = (HBITMAP) LoadImage(NULL, path, IMAGE_BITMAP, w, h, LR_LOADFROMFILE);
             if (NULL == bmp) {
                 ErrorExit(L"WM_CREATE LoadImage");
@@ -118,6 +118,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
     case WM_PAINT:
         {
+            // TODO: log this event to disk to verify its not called too frequently. perhaps display an FPS meter.
             BITMAP bmInfo;
             PAINTSTRUCT ps;
 
@@ -170,7 +171,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
     //     log(L"WM_SIZE event.");
     //     return 0;
 
+    // case WM_KEYDOWN:
+        // NOTICE: must call DefWindowProc() on these or system keys will be ignored (user won't be able to alt+tab etc)
+        // see: https://docs.microsoft.com/en-us/windows/win32/inputdev/about-keyboard-input
+        // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeystate
+    // case WM_KEYUP
+
     case WM_MOUSEMOVE:
+        // TODO: switch from cl to gcc + gdb to receive cli std output this way, or just write to .log file on disk
         wsprintf(mouseCoordinates, L"X:%d Y:%d\n", HIWORD(lParam), LOWORD(lParam));
         OutputDebugString(mouseCoordinates);
         return 0;

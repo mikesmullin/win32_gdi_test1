@@ -6,8 +6,11 @@ del main.obj main.exe
 
 echo compile and link...
 cl ../main.cpp /std:c++17 /DUNICODE /D_UNICODE /link user32.lib gdi32.lib
+cd ..
 pause
 
-cd ..
 echo execute...
-"build/main.exe"
+cd build/
+main.exe
+cd ..
+
