@@ -59,10 +59,23 @@ int WINAPI wWinMain(
     PWSTR pCmdLine,
     int nCmdShow
 ) {
+    bmp = LoadBitmap(hInstance, L"banner");
+    if (NULL == bmp) {
+        log(L"wWinMain LoadBitmap failed.");
+    }
+
+    const BOOL outcome = PlaySound(L"music", hInstance, SND_RESOURCE | SND_ASYNC | SND_LOOP);
+    if (FALSE == outcome) {
+        // ErrorExit(L"wWinMain PlaySound");
+        log(L"wWinMain sndPlaySound failed.");
+    }
+
+
     WNDCLASS wc = {};
     wc.lpfnWndProc = WndProc;
     wc.hInstance = hInstance;
     wc.lpszClassName = CLASS_NAME;
+    wc.hIcon = LoadIcon(hInstance, L"icon");
 
     RegisterClass(&wc);
 
@@ -108,18 +121,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
     {
     case WM_CREATE:
         {
-            const wchar_t* path = L"..\\resources\\banner.bmp";
-            bmp = (HBITMAP) LoadImage(NULL, path, IMAGE_BITMAP, w, h, LR_LOADFROMFILE);
-            if (NULL == bmp) {
-                ErrorExit(L"WM_CREATE LoadImage");
-                // log(L"WM_CREATE LoadImage failed.");
-            }
+            // const wchar_t* path = L"..\\resources\\banner.bmp";
+            // bmp = (HBITMAP) LoadImage(NULL, path, IMAGE_BITMAP, w, h, LR_LOADFROMFILE);
+            // if (NULL == bmp) {
+            //     ErrorExit(L"WM_CREATE LoadImage");
+            //     // log(L"WM_CREATE LoadImage failed.");
+            // }
 
-            const BOOL outcome = sndPlaySound(L"..\\resources\\music.wav", SND_ASYNC | SND_LOOP);
-            if (FALSE == outcome) {
-                // ErrorExit(L"WM_CREATE sndPlaySound");
-                log(L"WM_CREATE sndPlaySound failed.");
-            }
+            // const BOOL outcome = sndPlaySound(L"..\\resources\\music.wav", SND_ASYNC | SND_LOOP);
+            // if (FALSE == outcome) {
+            //     // ErrorExit(L"WM_CREATE sndPlaySound");
+            //     log(L"WM_CREATE sndPlaySound failed.");
+            // }
 
             return 0;
         }
